@@ -1,3 +1,5 @@
+import { TIMEOUT } from "dns";
+
 export default class CommonActions{
     constructor(page){
         this.page=page;
@@ -27,17 +29,14 @@ export default class CommonActions{
     }
     async getByRole(locator, selector){
           const acceptButton = await this.page.getByRole(locator, {name:selector});
-        if (await acceptButton.isVisible()) {
-            await acceptButton.click();
-            //await acceptButton.waitFor({ state: 'detached' });
-        }
+          await acceptButton.click();
+        // if (await acceptButton.isVisible()) {
+            
+        //     //await acceptButton.waitFor({ state: 'detached' });
+        // }
     }
 
-    /**
-     * Interacts with an element by test id. If text is provided, fills it; otherwise, clicks.
-     * @param {string} testID - The data-testid value of the element.
-     * @param {string} [text] - Optional text to fill into the element.
-     */
+   
     async getByTestID(testID, text){
         if (this.page.isClosed && this.page.isClosed()) {
             throw new Error('Page is already closed!');
@@ -68,10 +67,37 @@ export default class CommonActions{
     }
 
     async enter(){
+       
         await this.page.keyboard.press('Enter');
+       await this.page.waitForLoadState('domcontentloaded');
     }
 
     async typeTextBook(locator, text){
         await this.page.type(locator, text)
     }
+
+    async waitForSelector(locator){
+        await this.page.waitForSelector(locator, {state:'visible', timeout: 15000})
+    }
+
+    
+    async getText(selector){
+        const element= await this.page.locator(selector);
+        //await this.page.waitForTimeout(1000);
+        await element.waitFor({state:'visible',timeout:10000});
+        return await element.textContent();
+    }
+
+    async getbyRoleFirstBook(locator,selector){
+        const firstElement = await this.page.getByRole(locator, {name:selector}).first();
+          await firstElement.click();
+
+    }
+
+    async gtSpecBook(BookTitle){
+        const bookLink=  await this.page.getByRole('link').filter({hasText:BookTitle}).first();
+        await bookLink.click();
+    }
+
+
 }
