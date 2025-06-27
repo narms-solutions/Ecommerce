@@ -11,7 +11,7 @@ export default class HomePage{
     }
 //Naviage to adlibris home page
  async navigate(){
-        await this.actions.navigate();
+        await this.actions.navigate(`https://www.adlibris.com/sv`);
         await this.page.waitForLoadState('domcontentloaded');
         //await this.actions.wait();
     }

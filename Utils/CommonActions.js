@@ -1,12 +1,13 @@
 import { TIMEOUT } from "dns";
+import { url } from "inspector";
 
 export default class CommonActions{
     constructor(page){
         this.page=page;
     }
 
-    async navigate(){
-        await this.page.goto(`https://www.adlibris.com/sv`)
+    async navigate(Url){
+        await this.page.goto(Url)
     }
 
     async wait(){
@@ -32,7 +33,7 @@ export default class CommonActions{
           await acceptButton.click();
         // if (await acceptButton.isVisible()) {
             
-        //     //await acceptButton.waitFor({ state: 'detached' });
+        //     await acceptButton.waitFor({ state: 'detached' });
         // }
     }
 
@@ -66,9 +67,9 @@ export default class CommonActions{
        return  await this.page.locator(selector)
     }
 
-    async enter(){
+    async waitForLoadState(){
        
-        await this.page.keyboard.press('Enter');
+       
        await this.page.waitForLoadState('domcontentloaded');
     }
 
@@ -82,9 +83,10 @@ export default class CommonActions{
 
     
     async getText(selector){
+         //await this.page.waitForLoadState('domcontentloaded');
         const element= await this.page.locator(selector);
-        //await this.page.waitForTimeout(1000);
-        await element.waitFor({state:'visible',timeout:10000});
+       //await this.page.waitForTimeout(1000);
+        //await element.waitFor({state:'visible',timeout:10000});
         return await element.textContent();
     }
 
@@ -96,8 +98,30 @@ export default class CommonActions{
 
     async gtSpecBook(BookTitle){
         const bookLink=  await this.page.getByRole('link').filter({hasText:BookTitle}).first();
-        await bookLink.click();
+        await bookLink.click(); 
     }
 
+    async getAuthors(selector){
+       const authors=   await this.page.locator(selector).allTextContents();
+       return authors;
+    }
+    async getFirstAuthor(selector, index){
+        return await this.page.locator(selector).nth(index).textContent();
+    }
+
+    async getRating(selector,attribute){
+        return await this.page.locator(selector).getAttribute(attribute);
+    }
+
+  
+
+    async getTillKassan(selector,ButtonTitle, index){
+        const buttonLink= await this.page.getByRole(selector, { name: ButtonTitle }).nth(index);
+        await buttonLink.click();
+    }
+    async getFirstStepHeading(selector, text){
+      const firstStep= await this.page.getByRole(selector, {name:text});
+      return await firstStep.textContent();
+    }
 
 }

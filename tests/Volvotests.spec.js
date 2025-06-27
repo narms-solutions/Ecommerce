@@ -17,4 +17,11 @@ test.describe('Add the book into the cart', ()=>{
         await pm.homepage.searchTextBook('rivstart b1 b2');
     })
 
+    test.only('Add the selected book into cart', async()=>{
+        await pm.searchresults.naviagte();
+        await pm.searchresults.acceptCookies();
+        await pm.searchresults.addToCart();
+        
+    })
+
 })
