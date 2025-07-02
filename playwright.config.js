@@ -34,6 +34,7 @@ export default defineConfig({
     screenshot:'only-on-failure',
     video:'retain-on-failure',
     headless:true,
+    args: ['--no-sandbox', '--disable-gpu']
   },
 
   /* Configure projects for major browsers */
