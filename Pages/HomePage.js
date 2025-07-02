@@ -30,7 +30,7 @@ export default class HomePage{
 
         await this.actions.typeTextBook('input[name="q"]', BookTitle);
        
-      await this.actions.gtSpecBook('rivstart b1 b2');
+        await this.actions.gtSpecBook('rivstart b1 b2');
         await this.actions.waitForSelector('.search-result__product.search-result__list-view__product');
         const listOfSearchResults= await this.actions.locator('.search-result__product.search-result__list-view__product');
         const count=await listOfSearchResults.count();
@@ -42,7 +42,7 @@ export default class HomePage{
 
         await this.actions.getbyRoleFirstBook('link','Rivstart B1/B2 Textbok, tredje upplagan');
        
-        const priceOfBook=await this.actions.getText('.product__price__amount')
+        const priceOfBook=await this.actions.getPriceofBook('pdp-book','561 kr');
         console.log(`Price of the book is :${priceOfBook}`);
        // await expect(this.page).toHaveURL('https://www.adlibris.com/se/bok/rivstart-b1b2-textbok-tredje-upplagan-9789127466852');
 }

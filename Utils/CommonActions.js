@@ -82,12 +82,13 @@ export default class CommonActions{
     }
 
     
-    async getText(selector){
-         //await this.page.waitForLoadState('domcontentloaded');
-        const element= await this.page.locator(selector);
-       //await this.page.waitForTimeout(1000);
-        //await element.waitFor({state:'visible',timeout:10000});
-        return await element.textContent();
+    async getText( selector){
+         //await this.page.waitFor(locator);
+       // const element= await this.page.locator(selector).textContent();
+        return await this.page.locator(selector).textContent();
+    //    await this.page.waitForTimeout(1000);
+    //    // await element.waitFor({state:'visible',timeout:10000});
+    //     return await element.textContent();
     }
 
     async getbyRoleFirstBook(locator,selector){
@@ -102,26 +103,64 @@ export default class CommonActions{
     }
 
     async getAuthors(selector){
-       const authors=   await this.page.locator(selector).allTextContents();
+       const authors= await this.page.locator(selector).allTextContents();
        return authors;
     }
-    async getFirstAuthor(selector, index){
-        return await this.page.locator(selector).nth(index).textContent();
+    async getFirstAuthor(locator, title){
+ 
+       // const firstAuthor= await this.page.locator(selector).nth(index);
+      const firstAuthor= await this.page.getByRole(locator,{name:title});
+         return firstAuthor.textContent();
     }
 
-    async getRating(selector,attribute){
-        return await this.page.locator(selector).getAttribute(attribute);
+    async getRating(locator){
+       // return await this.page.locator(selector).getAttribute(attribute);
+       const betyg= await this.page.getByText(locator);
     }
 
   
 
-    async getTillKassan(selector,ButtonTitle, index){
-        const buttonLink= await this.page.getByRole(selector, { name: ButtonTitle }).nth(index);
+    async getTillKassan(selector,ButtonTitle){
+        const buttonLink= await this.page.getByRole(selector, { name: ButtonTitle }); //.nth(index);
         await buttonLink.click();
     }
-    async getFirstStepHeading(selector, text){
+    async getStepHeading(selector, text){
       const firstStep= await this.page.getByRole(selector, {name:text});
       return await firstStep.textContent();
+    }
+    async fillPostalCode(selector1,selector2, locator,Name, code, selector3){
+       // const postalCode= await this.page.locator(selector);
+        await this.page.locator(selector1).contentFrame().locator(selector2).click();
+        await this.page.locator(selector1).contentFrame().getByRole(locator, { name: Name }).fill(code);
+        // await this.page.locator(selector1).contentFrame().locator(selector3).click();
+        //await postalCode.fill(code);
+    }
+
+    async fillEmailAndCode(selector, locator, Email, element, postalcode,selector1 ,buttonRole, ButtonName){
+        await this.page.locator(selector).contentFrame().locator(locator).fill(Email);
+        await this.page.locator(selector).contentFrame().locator(element).fill(postalcode);
+        await this.page.locator(selector).contentFrame().locator(selector1).getByRole(buttonRole,{name:ButtonName}).click()
+    }
+    async betalakop(selector, buttonRole,ButtonName, klarnaHeading,KlarnaTitle){
+        const page1Promise = this.page.waitForEvent('popup');
+        await this.page.locator(selector).contentFrame().getByRole(buttonRole, { name: ButtonName}).click();
+         const page1 = await page1Promise;
+        const klarnaPopup=  await page1.getByRole(klarnaHeading, { name: KlarnaTitle}).textContent();
+        console.log(`Title of the klarna page:${klarnaPopup}`);
+
+    }
+
+    async getPriceofBook(locator,text){
+       //const priceElement= await this.page.getByTestId(locator).getByText(text);
+
+       return await this.page.getByTestId(locator).getByText(text).textContent();
+      // await priceElement.waitFor({ state: 'visible' });
+      // return  priceElement.textContent();
+
+    }          
+    
+    async getProductTitle(locator, title){
+        return await this.page.getByRole(locator, {name:title}).textContent();
     }
 
 }
