@@ -28,7 +28,7 @@ test.describe('Add the book into the cart', ()=>{
         await pm.checkOutPage.acceptCookies();
         await pm.checkOutPage.secondStep();
         await pm.checkOutPage.thirdStep();
-       // await pm.checkOutPage.finalStep();
+        await pm.checkOutPage.finalStep();
     })
    
 

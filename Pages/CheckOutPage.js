@@ -26,7 +26,7 @@ export default class CheckOutPage{
             console.log(`Third step heading in checkout page: ${step3Heading}`);
             //await this.actions.wait();
             
-            //await this.actions.fillEmailAndCode('#klarna-checkout-iframe','#billing-email','narmada.nalubolu@gmail.com', '#billing-postal_code','16256','#billing-baseWrapper', 'button', 'Fortsätt');
+            await this.actions.fillEmailAndCode('#klarna-checkout-iframe','#billing-email','narmada.nalubolu@gmail.com', '#billing-postal_code','16256','#billing-baseWrapper', 'button', 'Fortsätt');
         }
         async finalStep(){
             await this.actions.betalakop('iframe[name="klarna-checkout-iframe"]','button','Betala köp' , 'Heading', 'Välkommen till')

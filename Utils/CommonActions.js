@@ -136,19 +136,26 @@ export default class CommonActions{
         //await postalCode.fill(code);
     }
 
-    async fillEmailAndCode(selector, locator, Email, element, postalcode,selector1 ,buttonRole, ButtonName){
-        await this.page.locator(selector).contentFrame().locator(locator).fill(Email);
-        await this.page.locator(selector).contentFrame().locator(element).fill(postalcode);
-        await this.page.locator(selector).contentFrame().locator(selector1).getByRole(buttonRole,{name:ButtonName}).click()
-    }
-    async betalakop(selector, buttonRole,ButtonName, klarnaHeading,KlarnaTitle){
-        const page1Promise = this.page.waitForEvent('popup');
-        await this.page.locator(selector).contentFrame().getByRole(buttonRole, { name: ButtonName}).click();
-         const page1 = await page1Promise;
-        const klarnaPopup=  await page1.getByRole(klarnaHeading, { name: KlarnaTitle}).textContent();
-        console.log(`Title of the klarna page:${klarnaPopup}`);
-
-    }
+     async fillEmailAndCode(selector, locator, Email, element, postalcode,selector1 ,buttonRole, ButtonName){
+         await this.page.locator(selector).contentFrame().locator(locator).fill(Email);
+         await this.page.locator(selector).contentFrame().locator(element).fill(postalcode);
+         const deliveryButton= await this.page.locator(selector).contentFrame().locator(selector1).getByRole(buttonRole,{name:ButtonName});
+         await deliveryButton.waitFor({ state: 'visible', timeout: 10000 });
+         await deliveryButton.click();
+     }
+     async betalakop(selector, buttonRole,ButtonName, klarnaHeading,KlarnaTitle){
+         
+        const payButton= await this.page.locator(selector).contentFrame().getByRole(buttonRole, { name: ButtonName});
+         await payButton.waitFor({ state: 'visible', timeout: 10000 });
+         const page1Promise = this.page.waitForEvent('popup');
+         await payButton.click();
+          const page1 = await page1Promise;
+         const klarnaPopup=  await page1.getByRole(klarnaHeading, { name: KlarnaTitle})
+         await klarnaPopup.waitFor({ state: 'visible', timeout: 10000 });
+         await klarnaPopup.textContent();
+         console.log(`Title of the klarna page:${klarnaPopup}`);
+ 
+     }
 
     async getPriceofBook(locator,text){
        //const priceElement= await this.page.getByTestId(locator).getByText(text);
