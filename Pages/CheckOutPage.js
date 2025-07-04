@@ -19,13 +19,14 @@ export default class CheckOutPage{
         const step2Heading=await this.actions.getStepHeading('Heading', 'Steg 2 - Leveranssätt');
         console.log(`Step 2 Levarans heading: ${step2Heading}`);
        //await this.actions.wait();
-        await this.actions.fillPostalCode('[data-test="iframe-checkout"]','#inline-postalcode-input','textbox',  'Postnummer',  '16289',);
+        //await this.actions.fillPostalCode('[data-test="iframe-checkout"]','#inline-postalcode-input','textbox',  'Postnummer',  '16289',);
         }
         async thirdStep(){
             const step3Heading=await this.actions.getStepHeading('heading', 'Steg 3 - Slutför köp');
             console.log(`Third step heading in checkout page: ${step3Heading}`);
             //await this.actions.wait();
-            await this.actions.fillEmailAndCode('#klarna-checkout-iframe','#billing-email','narmada.nalubolu@gmail.com', '#billing-postal_code','16256','#billing-baseWrapper', 'button', 'Fortsätt');
+            
+            //await this.actions.fillEmailAndCode('#klarna-checkout-iframe','#billing-email','narmada.nalubolu@gmail.com', '#billing-postal_code','16256','#billing-baseWrapper', 'button', 'Fortsätt');
         }
         async finalStep(){
             await this.actions.betalakop('iframe[name="klarna-checkout-iframe"]','button','Betala köp' , 'Heading', 'Välkommen till')

@@ -24,7 +24,7 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
-         npx playwright test --project=chromium --headed=false --timeout=60000
+              npx playwright test --project=chromium --headed=false --timeout=60000
 
       - name: Run Playwright tests
         run: npx playwright test
