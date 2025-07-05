@@ -27,7 +27,7 @@ jobs:
               
 
       - name: Run Playwright tests
-        run: npx playwright test --reporter=json=playwright-report/test-results.json --reporter=html=playwright-report/test-results.html
+        run: npx playwright test --reporter=json=playwright-report/test-results.json 
       
       - name: Upload JSON test results
         if: always()
