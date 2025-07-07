@@ -27,7 +27,7 @@ export default defineConfig({
     ['list'],
     ['json',{outputFile:'playwright-report/test-results.json' }],
 
-    ['html',{outputFolder:'playwright-report',open:'never' }]
+   
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
