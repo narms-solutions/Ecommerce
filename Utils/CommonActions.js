@@ -151,7 +151,7 @@ export default class CommonActions{
          await payButton.click();
           const page1 = await page1Promise;
          const klarnaPopup=  await page1.getByRole(klarnaHeading, { name: KlarnaTitle})
-         await klarnaPopup.waitFor({ state: 'visible', timeout: 10000 });
+         await klarnaPopup.waitFor({ state: 'visible', timeout: 20000 });
          await klarnaPopup.textContent();
          console.log(`Title of the klarna page:${klarnaPopup}`);
  

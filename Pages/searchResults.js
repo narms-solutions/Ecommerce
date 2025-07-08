@@ -28,8 +28,8 @@ export default class searchResults{
       console.log(`The title of the bokk is: ${titleOfBook.trim()}`);
 
       //2.Print all the author names and combine them using separation ,  of the book
-      const authorsOfTheBook= await this.actions.getAuthors('.product__stand-alone-attribute--authors a span');
-      console.log(`Authors of the book:${authorsOfTheBook.join(',')}`);
+    //   const authorsOfTheBook= await this.actions.getAuthors('.product__stand-alone-attribute--authors a span');
+    //   console.log(`Authors of the book:${authorsOfTheBook.join(',')}`);
 
         //3.Print only the selected (either first, second, third...) author from the list
         //const selectedFirstAuthor= await this.actions.getFirstAuthor('.product__stand-alone-attribute--authors a span', 0);
@@ -37,7 +37,10 @@ export default class searchResults{
         console.log(`First author of the book:${selectedFirstAuthor}`);
 
          const selectedSecondAuthor= await this.actions.getFirstAuthor('link', 'Karl Lindemalm');
-        console.log(`First author of the book:${selectedSecondAuthor}`);
+        console.log(`Second author of the book:${selectedSecondAuthor}`);
+
+        const authors=[selectedFirstAuthor,selectedSecondAuthor ]
+        console.log(`Authors of the book:${authors.join(',')}`);
 
         //4. Print the rating
         // const rating=await this.actions.getFirstAuthor('title', 'Betyg 5.0 av 5');
