@@ -42,5 +42,11 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
+        
+      - name: Build Docker image
+        run: docker build -t playwright-tests .
+
+      - name: Run tests in docker
+        run: docker run --rm playwright-tests 
 
       
