@@ -12,7 +12,7 @@ export default class HomePage extends Navigation{
 //Naviage to adlibris home page
  async navigate(){
         await super.navigate(this.data.HomePageUrl);
-        await this.page.waitForLoadState('domcontentloaded');
+        //await this.page.waitForLoadState('domcontentloaded');
         await super.acceptCookies();
         
     }
