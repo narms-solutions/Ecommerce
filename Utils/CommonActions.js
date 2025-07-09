@@ -1,5 +1,4 @@
-import { TIMEOUT } from "dns";
-import { url } from "inspector";
+
 
 export default class CommonActions{
     constructor(page){
@@ -85,7 +84,9 @@ export default class CommonActions{
     async getText( selector){
          //await this.page.waitFor(locator);
        // const element= await this.page.locator(selector).textContent();
-        return await this.page.locator(selector).textContent();
+        const price= await this.page.locator(selector);
+        await this.page.waitForTimeout(1000);
+       return price.textContent();
     //    await this.page.waitForTimeout(1000);
     //    // await element.waitFor({state:'visible',timeout:10000});
     //     return await element.textContent();
@@ -129,7 +130,7 @@ export default class CommonActions{
       return await firstStep.textContent();
     }
     async fillPostalCode(selector1,selector2, locator,Name, code, selector3){
-       // const postalCode= await this.page.locator(selector);
+       
         await this.page.locator(selector1).contentFrame().locator(selector2).click();
         await this.page.locator(selector1).contentFrame().getByRole(locator, { name: Name }).fill(code);
         // await this.page.locator(selector1).contentFrame().locator(selector3).click();
@@ -152,15 +153,14 @@ export default class CommonActions{
           const page1 = await page1Promise;
          const klarnaPopup=  await page1.getByRole(klarnaHeading, { name: KlarnaTitle})
          await klarnaPopup.waitFor({ state: 'visible', timeout: 20000 });
-         await klarnaPopup.textContent();
-         console.log(`Title of the klarna page:${klarnaPopup}`);
+         const title=await klarnaPopup.textContent();
+         console.log(`Title of the klarna page:${title}`);
  
      }
 
     async getPriceofBook(locator,text){
        //const priceElement= await this.page.getByTestId(locator).getByText(text);
-
-       return await this.page.getByTestId(locator).getByText(text).textContent();
+     return await this.page.getByTestId(locator).getByText(text).textContent();
       // await priceElement.waitFor({ state: 'visible' });
       // return  priceElement.textContent();
 
@@ -170,4 +170,48 @@ export default class CommonActions{
         return await this.page.getByRole(locator, {name:title}).textContent();
     }
 
+    async getRating(selector,rate){
+    
+        const ratingHandles = await this.page.locator(selector).elementHandles();
+        let ratingText;
+        for (const handle of ratingHandles) {
+        const text = await handle.evaluate(node => node.textContent);
+        if (text && text.includes(rate)) {
+        ratingText = text;
+        break;
+    }
 }
+    console.log('Raw rating text:', ratingText);
+   
+    if(ratingText){
+        const match = ratingText.match(/(\d+(\.\d+)?)/);
+        if(match){
+            
+        const finalRating = match[0];
+        console.log(`Rating in digits form: ${finalRating}`);
+    } else {
+        console.log('No numeric rating found in:', ratingText);
+    }
+} 
+    else 
+    {
+    console.log('No rating element found.');
+    }
+}
+
+
+async getPriceOfBook(selector){
+    const rawPrice=await this.page.locator(selector).textContent();
+    console.log('Raw price text:', rawPrice);
+    const priceMatch=rawPrice.match(/(\d+(\.\d+)?)/);
+    if(priceMatch){
+        const price=priceMatch[0];
+        console.log(`Book price: ${price} `);
+    }
+    else{
+        console.log('Could not find exact price.')
+    }
+}
+
+}
+
