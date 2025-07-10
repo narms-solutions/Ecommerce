@@ -11,10 +11,6 @@ export default class CheckOutPage extends Navigation{
         this.actions=new CommonActions(page);
         
     }
-async navigate(){
-        await super.navigate(this.data.checkOutPageUrl);
-        await super.acceptCookies();
-    }
     
     async secondStep(){
         const step2Heading=await this.actions.getStepHeading('Heading', 'Steg 2 - Leveranssätt');

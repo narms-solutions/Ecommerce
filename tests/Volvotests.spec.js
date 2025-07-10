@@ -13,17 +13,21 @@ test.describe('Add the book into the cart', ()=>{
     })
 
     test('Navigate to Adlibris home page and handle cookies', async()=>{
-        await pm.homepage.navigate();
+        
+        await pm.navigation.navigate(data.HomePageUrl);
+        await pm.navigation.acceptCookies();
         await pm.homepage.searchTextBook(data.searchBook);
     })
 
     test('Add the selected book into cart', async()=>{
-        await pm.searchresults.naviagte();
+         await pm.navigation.navigate(data.SearchPageUrl);
+        await pm.navigation.acceptCookies();
         await pm.searchresults.addToCart();
         
     })
     test('Checkout page', async()=>{
-        await pm.checkOutPage.navigate();
+        await pm.navigation.navigate(data.checkOutPageUrl);
+        await pm.navigation.acceptCookies();
         await pm.checkOutPage.secondStep();
         await pm.checkOutPage.thirdStep();
         await pm.checkOutPage.finalStep();

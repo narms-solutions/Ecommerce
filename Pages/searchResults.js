@@ -9,14 +9,7 @@ export default class searchResults extends Navigation{
         this.actions= new CommonActions(page);
     }
 
-    //Navigae to home page and accept cookies
-    async naviagte(){
-        await super.navigate(this.data.SearchPageUrl);
-        await this.page.waitForLoadState('domcontentloaded');
-        await super.acceptCookies();
-        
-    }
-
+   
     //Print the Ttile, author and price of the book then click on add to cart button
     async addToCart(){
 

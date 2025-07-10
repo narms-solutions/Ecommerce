@@ -9,14 +9,6 @@ export default class HomePage extends Navigation{
         this.actions=new CommonActions(page);
         
     }
-//Naviage to adlibris home page
- async navigate(){
-        await super.navigate(this.data.HomePageUrl);
-        //await this.page.waitForLoadState('domcontentloaded');
-        await super.acceptCookies();
-        
-    }
-    //Search for particular text book
     async searchTextBook(BookTitle){
        
         await this.actions.typeTextBook('input[name="q"]', BookTitle);
