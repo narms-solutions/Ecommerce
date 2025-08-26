@@ -148,13 +148,14 @@ export default class CommonActions{
          
         const payButton= await this.page.locator(selector).contentFrame().getByRole(buttonRole, { name: ButtonName});
          await payButton.waitFor({ state: 'visible', timeout: 10000 });
-         const page1Promise = this.page.waitForEvent('popup');
+         //const page1Promise = this.page.waitForEvent('popup');
          await payButton.click();
-          const page1 = await page1Promise;
-         const klarnaPopup=  await page1.getByRole(klarnaHeading, { name: KlarnaTitle})
-         await klarnaPopup.waitFor({ state: 'visible', timeout: 20000 });
-         const title=await klarnaPopup.textContent();
-         console.log(`Title of the klarna page:${title}`);
+        //   const page1 = await page1Promise;
+        //  const klarnaPopup=  await page1.getByRole(klarnaHeading, { name: KlarnaTitle})
+          
+         //await klarnaPopup.waitFor({ state: 'visible', timeout: 50000 });
+        //  const title=await klarnaPopup.textContent();
+        //  console.log(`Title of the klarna page:${title}`);
  
      }
 

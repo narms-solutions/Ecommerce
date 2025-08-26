@@ -42,8 +42,23 @@ export default class searchResults extends Navigation{
 
         //6.Navigate to till kassan
         await this.actions.getByRole('link','Till kassan')
+       
         const firstStage=await this.actions.getStepHeading('heading','Steg 1 - Din varukorg');
         console.log(`Fist satge of the checkOut page:${firstStage}`)
+
+        //get the second step title
+        const step2Heading=await this.actions.getStepHeading('Heading', 'Steg 2 - Leveranssätt');
+        console.log(`Step 2 Levarans heading: ${step2Heading}`);
+       //get third stage title and fill the address
+    
+        const step3Heading=await this.actions.getStepHeading('heading', 'Steg 3 - Slutför köp');
+            console.log(`Third step heading in checkout page: ${step3Heading}`);
+            await this.actions.fillEmailAndCode('#klarna-checkout-iframe','#billing-email',data.email, '#billing-postal_code', data.postalCode,'#billing-baseWrapper', 'button', 'Fortsätt');
+        
+
+            await this.actions.betalakop('iframe[name="klarna-checkout-iframe"]','button','Betala köp' , 'Heading', 'Välkommen till')
+
+    
       
     }
 

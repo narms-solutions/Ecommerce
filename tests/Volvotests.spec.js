@@ -25,13 +25,7 @@ test.describe('Add the book into the cart', ()=>{
         await pm.searchresults.addToCart();
         
     })
-    test('Checkout page', async()=>{
-        await pm.navigation.navigate(data.checkOutPageUrl);
-        await pm.navigation.acceptCookies();
-        await pm.checkOutPage.secondStep();
-        await pm.checkOutPage.thirdStep();
-        await pm.checkOutPage.finalStep();
-    })
+   
    
 
 })

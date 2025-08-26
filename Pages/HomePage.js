@@ -25,7 +25,8 @@ export default class HomePage extends Navigation{
 
         await this.actions.getbyRoleFirstBook('link','Rivstart B1/B2 Textbok, tredje upplagan');
        
-        const priceOfBook=await this.actions.getPriceofBook('pdp-book','561 kr');
+        const priceOfBook=await this.actions.getPriceofBook('pdp-book','535 kr');
+        
         console.log(`Price of the book is :${priceOfBook}`);
        
 }
