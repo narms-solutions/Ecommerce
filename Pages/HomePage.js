@@ -12,7 +12,7 @@ export default class HomePage extends Navigation{
     async searchTextBook(BookTitle){
        
         await this.actions.typeTextBook('input[name="q"]', BookTitle);
-        await this.actions.gtSpecBook(BookTitle);
+        await this.actions.gtSpecBook(BookTitle) ;
         await this.actions.waitForSelector('.search-result__product.search-result__list-view__product');
         const listOfSearchResults= await this.actions.locator('.search-result__product.search-result__list-view__product');
         const count=await listOfSearchResults.count();
