@@ -14,7 +14,7 @@ test.describe('Add the book into the cart', ()=>{
 
     test('Navigate to Adlibris home page and handle cookies', async()=>{
         
-        await pm.navigation.navigate(data.HomePageUrl);
+        await pm.navigation.navigate(data.HomePageUrl) ;
         await pm.navigation.acceptCookies();
         await pm.homepage.searchTextBook(data.searchBook);
     })
