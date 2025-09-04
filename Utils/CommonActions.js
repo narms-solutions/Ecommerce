@@ -147,7 +147,7 @@ export default class CommonActions{
      async betalakop(selector, buttonRole,ButtonName, klarnaHeading,KlarnaTitle){
          
         const payButton= await this.page.locator(selector).contentFrame().getByRole(buttonRole, { name: ButtonName});
-         await payButton.waitFor({ state: 'visible', timeout: 10000 });
+         //await payButton.waitFor({ state: 'visible', timeout: 10000 });
          //const page1Promise = this.page.waitForEvent('popup');
          await payButton.click();
         //   const page1 = await page1Promise;
